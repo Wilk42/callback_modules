@@ -83,74 +83,59 @@ Here are the current methods for the CallbackBase
 ```
 
 ## Runner methods ##
-v2_runner_item_on_skipped  
-runner_on_async_poll     
-v2_runner_on_unreachable  
-runner_on_no_hosts   
-v2_runner_on_async_failed  
-runner_on_skipped   
-v2_runner_on_async_ok
-v2_runner_on_async_ok    
-runner_on_failed           
-runner_on_async_failed
-v2_runner_on_no_hosts
-runner_on_async_ok
-runner_on_unreachable      
-v2_runner_on_ok            
-v2_runner_on_async_poll    
-v2_runner_on_skipped    
-v2_runner_on_failed   
-v2_runner_on_file_diff  
-v2_runner_retry  
-runner_on_ok               
-v2_runner_item_on_ok
-v2_runner_item_on_failed        
+|	v2 items	|	v1 items	|
+|	-------------	|	-------------	|
+|	v2_runner_item_on_failed	|		|
+|	v2_runner_item_on_ok	|		|
+|	v2_runner_item_on_skipped	|		|
+|	v2_runner_on_async_failed	|	runner_on_async_failed	|
+|	v2_runner_on_async_ok	|	runner_on_async_ok	|
+|	v2_runner_on_async_ok	|		|
+|	v2_runner_on_async_poll	|	runner_on_async_poll	|
+|	v2_runner_on_failed	|	runner_on_failed	|
+|	v2_runner_on_file_diff	|		|
+|	v2_runner_on_no_hosts	|	runner_on_no_hosts	|
+|	v2_runner_on_ok	|	runner_on_ok	|
+|	v2_runner_on_skipped	|	runner_on_skipped	|
+|	v2_runner_on_unreachable	|	runner_on_unreachable	|
+|	v2_runner_retry	|		|      
 
 ## Playbooks methods ##
-v2_playbook_on_stats       
-v2_playbook_on_start   
-playbook_on_not_import_for_host  
-playbook_on_notify        
-v2_playbook_on_include   
-playbook_on_no_hosts_remaining   
-v2_playbook_on_setup       
-playbook_on_import_for_host  
-v2_playbook_on_no_hosts_matched  
-v2_playbook_on_handler_task_start
-playbook_on_play_start     
-playbook_on_setup   
-v2_playbook_on_play_start
-playbook_on_no_hosts_matched  
-playbook_on_start  
-v2_playbook_on_no_hosts_remaining  
-v2_playbook_on_vars_prompt  
-playbook_on_vars_prompt    
-v2_playbook_on_notify   
-v2_playbook_on_import_for_host
-playbook_on_stats            
-v2_playbook_on_not_import_for_host  
-playbook_on_task_start     
-v2_playbook_on_task_start  
-v2_playbook_on_cleanup_task_start
+|	v2 items	|	v1 items	|
+|	-------------	|	-------------	|
+|	v2_playbook_on_cleanup_task_start	|		|
+|	v2_playbook_on_handler_task_start	|		|
+|	v2_playbook_on_import_for_host	|	playbook_on_import_for_host	|
+|	v2_playbook_on_include	|		|
+|	v2_playbook_on_no_hosts_matched	|	playbook_on_no_hosts_matched	|
+|	v2_playbook_on_no_hosts_remaining	|	playbook_on_no_hosts_remaining	|
+|	v2_playbook_on_not_import_for_host	|	playbook_on_not_import_for_host	|
+|	v2_playbook_on_notify	|	playbook_on_notify	|
+|	v2_playbook_on_play_start	|	playbook_on_play_start	|
+|	v2_playbook_on_setup	|	playbook_on_setup	|
+|	v2_playbook_on_start	|	playbook_on_start	|
+|	v2_playbook_on_stats	|	playbook_on_stats	|
+|	v2_playbook_on_task_start	|	playbook_on_task_start	|
+|	v2_playbook_on_vars_prompt	|	playbook_on_vars_prompt	|
 
 ## Misc methods ##
-on_file_diff               
-on_any            
-v2_on_file_diff
-_dump_results      
-__abstractmethods__        
-_process_items
-_clean_results    
-_copy_result  
-__doc__
-_abc_cache                 
-_abc_negative_cache        
-_get_item
-set_options                  
-v2_on_any       
-_handle_warnings           
-_get_diff                  
-_handle_exception          
-__init__     
-_abc_registry  
-set_play_context      
+|	v2 items	|	v1 items	|
+|		|	-------------	|
+|		|	__abstractmethods__	|
+|		|	__doc__	|
+|		|	__init__	|
+|		|	_abc_cache	|
+|		|	_abc_negative_cache	|
+|		|	_abc_registry	|
+|		|	_clean_results	|
+|		|	_copy_result	|
+|		|	_dump_results	|
+|		|	_get_diff	|
+|		|	_get_item	|
+|		|	_handle_exception	|
+|		|	_handle_warnings	|
+|		|	_process_items	|
+|	v2_on_any	|	on_any	|
+|	v2_on_file_diff	|	on_file_diff	|
+|		|	set_options	|
+|		|	set_play_context	|  
