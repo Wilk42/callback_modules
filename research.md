@@ -120,7 +120,7 @@ Here are the current methods for the CallbackBase
 
 ## Misc methods ##
 |	v2 items	|	v1 items	|
-|		|	-------------	|
+|	-------------	|	-------------	|
 |		|	__abstractmethods__	|
 |		|	__doc__	|
 |		|	__init__	|
@@ -138,4 +138,4 @@ Here are the current methods for the CallbackBase
 |	v2_on_any	|	on_any	|
 |	v2_on_file_diff	|	on_file_diff	|
 |		|	set_options	|
-|		|	set_play_context	|  
+|		|	set_play_context	|
