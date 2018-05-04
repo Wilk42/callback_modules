@@ -121,9 +121,9 @@ Here are the current methods for the CallbackBase
 ## Misc methods ##
 |	v2 items	|	v1 items	|
 |	-------------	|	-------------	|
-|		|	__abstractmethods__	|
-|		|	__doc__	|
-|		|	__init__	|
+|		|	\__abstractmethods\__	|
+|		|	\__doc\__	|
+|		|	\__init\__	|
 |		|	_abc_cache	|
 |		|	_abc_negative_cache	|
 |		|	_abc_registry	|
