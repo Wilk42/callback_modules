@@ -24,6 +24,7 @@ from ansible.plugins.callback import CallbackBase
 from ansible.utils.color import colorize, hostcolor
 
 
+
 class CallbackModule(CallbackBase):
 
     '''
