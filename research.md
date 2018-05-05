@@ -85,9 +85,9 @@ Here are the current methods for the CallbackBase
     v2_playbook_on_task_start  -->  <function v2_playbook_on_task_start at 0x7efc76730488>
     set_play_context           -->  <function set_play_context at 0x7efc76731320>
 ```
-## Runner methods ##									
+## Runner methods ##										
 |	v2 items	|	v1 items	|	initial defaults v2	|	initial defaults v1	|	Default callback Plugin	|
-|	-------------	|	-------------	|	-------------	|	-------------	|		|
+|	-------------	|	-------------	|	-------------	|	-------------	|	-------------	|
 |	v2_runner_item_on_failed	|		|	pass	|		|	Displays "failed: [host_name] result" Dump results	|
 |	v2_runner_item_on_ok	|		|	pass	|		|	Displays "Ok" or "Changed"	|
 |	v2_runner_item_on_skipped	|		|	pass	|		|	Displays "skipping: [host_name]"	|
@@ -102,9 +102,9 @@ Here are the current methods for the CallbackBase
 |	v2_runner_on_unreachable	|	runner_on_unreachable	|	Sets var host	|	pass	|	Displays "fatal: [%s -> %s]: UNREACHABLE! => %s"	|
 |	v2_runner_retry	|		|	pass	|		|	Displays "FAILED - RETRYING" task and retries left	|
 
-## Playbooks methods ##									
-|	v2 items	|	v1 items	|	initial defaults v2	|	initial defaults v1	|		|
-|	-------------	|	-------------	|	-------------	|	-------------	|		|
+## Playbooks methods ##										
+|	v2 items	|	v1 items	|	initial defaults v2	|	initial defaults v1	|	Default callback Plugin	|
+|	-------------	|	-------------	|	-------------	|	-------------	|	-------------	|
 |	v2_playbook_on_cleanup_task_start	|		|	pass	|		|	Display "CLEANUP TASK [task_name]"	|
 |	v2_playbook_on_handler_task_start	|		|	pass	|		|	Display "RUNNING HANDLER [handler_task_name]"	|
 |	v2_playbook_on_import_for_host	|	playbook_on_import_for_host	|	Sets var host	|	pass	|		|
@@ -120,9 +120,9 @@ Here are the current methods for the CallbackBase
 |	v2_playbook_on_task_start	|	playbook_on_task_start	|	pass	|	pass	|	Displays the task via print task banner	|
 |	v2_playbook_on_vars_prompt	|	playbook_on_vars_prompt	|	pass	|	pass	|		|
 
-## Misc methods ##									
-|	v2 items	|	v1 items	|	initial defaults v2	|	initial defaults v1	|		|
-|	-------------	|	-------------	|	-------------	|	-------------	|		|
+## Misc methods ##										
+|	v2 items	|	v1 items	|	initial defaults v2	|	initial defaults v1	|	Default callback Plugin	|
+|	-------------	|	-------------	|	-------------	|	-------------	|	-------------	|
 |		|	\__init\__	|		|	sets options, display, etc	|	Sets vars self._play, self._last_task_banner to None	|
 |		|	_clean_results	|		|	removes data from results for display	|		|
 |		|	_dump_results	|		|	indents results, Removes base keys, exepction. Removes invocation and diff in result when less than level 3 verbosity. Returns json	|		|
@@ -136,4 +136,4 @@ Here are the current methods for the CallbackBase
 |		|	set_options	|		|	Sets options, default is none	|		|
 |		|	set_play_context	|		|	pass	|		|
 |	Within default Callback module only	|	_print_task_banner	|		|		|	Displays task	|
-                  
+                    
