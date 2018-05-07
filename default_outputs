@@ -1,0 +1,32 @@
+PLAY [This is a playbook to display all ansible callback outputs.] *********************************************************
+
+TASK [Gathering Facts] *****************************************************************************************************
+ok: [172.16.0.2]
+ok: [172.16.0.3]
+
+TASK [Install the httpd rpm] ***********************************************************************************************
+changed: [172.16.0.2]
+changed: [172.16.0.3]
+ok
+ok: [172.16.0.3]
+ok: [172.16.0.2]
+
+TASK [add packages] ********************************************************************************************************
+changed: [172.16.0.2] => (item=[u'httpd', u'python-pip'])
+changed: [172.16.0.3] => (item=[u'httpd', u'python-pip'])
+or
+ok: [172.16.0.3] => (item=[u'httpd', u'perl'])
+ok: [172.16.0.2] => (item=[u'httpd', u'perl'])
+
+
+TASK [replace AllowOverride] ***********************************************************************************************
+changed: [172.16.0.3]
+changed: [172.16.0.2]
+
+TASK [Install the nrpe service, expecting fail] ****************************************************************************
+fatal: [172.16.0.3]: FAILED! => {"changed": false, "msg": "No package matching 'nrpe' found available, installed or updated", "rc": 126, "results": ["No package matching 'nrpe' found available, installed or updated"]}
+fatal: [172.16.0.2]: FAILED! => {"changed": false, "msg": "No package matching 'nrpe' found available, installed or updated", "rc": 126, "results": ["No package matching 'nrpe' found available, installed or updated"]}
+
+PLAY RECAP *****************************************************************************************************************
+172.16.0.2                 : ok=6    changed=1    unreachable=0    failed=1
+172.16.0.3                 : ok=6    changed=1    unreachable=0    failed=1

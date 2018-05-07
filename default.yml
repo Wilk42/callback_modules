@@ -1,0 +1,44 @@
+---
+- name: This is a playbook to display all ansible callback outputs.
+  hosts: all
+  any_errors_fatal: false
+  tasks:
+
+  - name: Install the httpd
+    yum:
+      name: httpd
+
+  - name: add packages
+    yum:
+      name: "{{ item }}"
+      state: present
+    with_items:
+       - httpd
+       - perl
+
+  - name: remove packages
+    yum:
+      name: "{{ item }}"
+      state: present
+    with_items:
+       - vim
+       - python-virtualenv
+    ignore_errors: True
+
+  - name: replace AllowOverride
+    replace:
+      path: /etc/httpd/conf/httpd.conf
+      regexp: '(?i)AllowOverride\sNone'
+      replace: 'AllowOverride All'
+      backup: yes
+    ignore_errors: True
+
+  - name: start the httpd service
+    service:
+      name: httpd
+      state: restarted
+      enabled: yes
+
+  - name: Install the nrpe service, expecting fail
+    yum:
+      name: nrpe

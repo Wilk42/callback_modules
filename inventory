@@ -1,0 +1,13 @@
+[client]
+172.16.0.2
+
+[server]
+172.16.0.3
+
+[client:vars]
+
+[server:vars]
+
+[both:children]
+server
+client
