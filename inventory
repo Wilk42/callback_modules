@@ -1,8 +1,12 @@
 [client]
 172.16.0.2
+172.16.0.5
 
 [server]
 172.16.0.3
+
+[none]
+
 
 [client:vars]
 

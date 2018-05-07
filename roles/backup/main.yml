@@ -1,0 +1,130 @@
+  - name: Include a play after another play
+    include: otherplays.yaml
+
+  - name: Install the httpd expected skip
+    yum:
+      name: httpd
+    when: ansible_os_family == "Debian"
+
+  - name: remove httpd delegated
+    yum:
+      name: httpd
+      state: absent
+    delegate_to: 172.16.0.3
+
+  - name: add packages
+    yum:
+      name: "{{ item }}"
+      state: present
+    with_items:
+       - httpd
+       - perl
+    notify:
+    - restart apache
+
+  - name: add packages skipping list
+    yum:
+      name: "{{ item }}"
+      state: present
+    with_items:
+       - httpd
+       - perl
+    when: ansible_os_family == "Debian"
+
+  - name: add packages delegated
+    yum:
+      name: "{{ item }}"
+      state: present
+    with_items:
+       - ruby
+       - java
+    delegate_to: 172.16.0.3
+
+  - name: remove packages
+    yum:
+      name: "{{ item }}"
+      state: absent
+    with_items:
+       - vim
+       - python-virtualenv
+    ignore_errors: True
+
+  - name: replace AllowOverride
+    replace:
+      path: /etc/httpd/conf/httpd.conf
+      regexp: '(?i)AllowOverride\sNone'
+      replace: 'AllowOverride All'
+      backup: yes
+    ignore_errors: True
+
+
+  - name: start the httpd service
+    service:
+      name: httpd
+      state: restarted
+      enabled: yes
+
+  - name: start the httpd service async poll
+    service:
+      name: httpd
+      state: restarted
+      enabled: yes
+    async: 45
+    poll: 5
+
+  - name: start the httpd service async no poll
+    service:
+      name: httpd
+      state: restarted
+      enabled: yes
+    async: 45
+
+
+  - name: Install the nrpe service, expecting fail
+    yum:
+      name: nrpe
+    ignore_errors: True
+
+  - name: Install the nrpe service, expecting fail, async failed
+    yum:
+      name: nrpe
+    ignore_errors: True
+    async: 45
+    poll: 5
+
+  - name: Install the nrpe service, expecting fail, delegated
+    yum:
+      name: nrpe
+    delegate_to: 172.16.0.3
+    ignore_errors: True
+
+  - name: shell command retry
+    shell: exit 1
+    register: task_result
+    until: task_result.rc == 0
+    retries: 2
+    delay: 1
+    ignore_errors: yes
+
+  - name: shell command fail with items
+    shell: exit "{{ item }}"
+    with_items:
+       - 1
+       - 2
+    ignore_errors: yes
+
+  - name: shell command fail delegated with items
+    shell: exit "{{ item }}"
+    with_items:
+       - 1
+       - 2
+    delegate_to: 172.16.0.3
+    ignore_errors: yes
+
+
+
+  handlers:
+    - name: restart apache
+      service:
+        name: httpd
+        state: restarted

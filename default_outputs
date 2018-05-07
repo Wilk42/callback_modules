@@ -1,32 +1,106 @@
-PLAY [This is a playbook to display all ansible callback outputs.] *********************************************************
+PLAY [all] **********************************************************************************************************
 
-TASK [Gathering Facts] *****************************************************************************************************
+TASK [Gathering Facts] **********************************************************************************************
+ok: [172.16.0.2]
+ok: [172.16.0.3]
+fatal: [172.16.0.5]: UNREACHABLE! => {"changed": false, "msg": "Failed to connect to the host via ssh: ssh: connect to host 172.16.0.5 port 22: No route to host\r\n", "unreachable": true}
+
+TASK [default : Install the httpd] **********************************************************************************
 ok: [172.16.0.2]
 ok: [172.16.0.3]
 
-TASK [Install the httpd rpm] ***********************************************************************************************
-changed: [172.16.0.2]
-changed: [172.16.0.3]
-ok
-ok: [172.16.0.3]
-ok: [172.16.0.2]
+TASK [default : Install the httpd expected skip] ********************************************************************
+skipping: [172.16.0.2]
+skipping: [172.16.0.3]
 
-TASK [add packages] ********************************************************************************************************
-changed: [172.16.0.2] => (item=[u'httpd', u'python-pip'])
-changed: [172.16.0.3] => (item=[u'httpd', u'python-pip'])
-or
-ok: [172.16.0.3] => (item=[u'httpd', u'perl'])
+TASK [default : remove httpd delegated] *****************************************************************************
+changed: [172.16.0.2 -> 172.16.0.3]
+changed: [172.16.0.3 -> 172.16.0.3]
+
+TASK [default : add packages] ***************************************************************************************
 ok: [172.16.0.2] => (item=[u'httpd', u'perl'])
+changed: [172.16.0.3] => (item=[u'httpd', u'perl'])
 
+TASK [default : add packages skipping list] *************************************************************************
+skipping: [172.16.0.2] => (item=[])
+skipping: [172.16.0.3] => (item=[])
 
-TASK [replace AllowOverride] ***********************************************************************************************
+TASK [default : add packages delegated] *****************************************************************************
+ok: [172.16.0.2 -> 172.16.0.3] => (item=[u'ruby', u'java'])
+ok: [172.16.0.3 -> 172.16.0.3] => (item=[u'ruby', u'java'])
+
+TASK [default : remove packages] ************************************************************************************
+ok: [172.16.0.2] => (item=[u'vim', u'python-virtualenv'])
+ok: [172.16.0.3] => (item=[u'vim', u'python-virtualenv'])
+
+TASK [default : replace AllowOverride] ******************************************************************************
+ok: [172.16.0.2]
+changed: [172.16.0.3]
+
+TASK [default : start the httpd service] ****************************************************************************
 changed: [172.16.0.3]
 changed: [172.16.0.2]
 
-TASK [Install the nrpe service, expecting fail] ****************************************************************************
-fatal: [172.16.0.3]: FAILED! => {"changed": false, "msg": "No package matching 'nrpe' found available, installed or updated", "rc": 126, "results": ["No package matching 'nrpe' found available, installed or updated"]}
-fatal: [172.16.0.2]: FAILED! => {"changed": false, "msg": "No package matching 'nrpe' found available, installed or updated", "rc": 126, "results": ["No package matching 'nrpe' found available, installed or updated"]}
+TASK [default : start the httpd service async poll] *****************************************************************
+changed: [172.16.0.2]
+changed: [172.16.0.3]
 
-PLAY RECAP *****************************************************************************************************************
-172.16.0.2                 : ok=6    changed=1    unreachable=0    failed=1
-172.16.0.3                 : ok=6    changed=1    unreachable=0    failed=1
+TASK [default : start the httpd service async no poll] **************************************************************
+changed: [172.16.0.2]
+changed: [172.16.0.3]
+
+TASK [default : Install the nrpe service, expecting fail] ***********************************************************
+fatal: [172.16.0.2]: FAILED! => {"changed": false, "msg": "No package matching 'nrpe' found available, installed or updated", "rc": 126, "results": ["No package matching 'nrpe' found available, installed or updated"]}
+...ignoring
+fatal: [172.16.0.3]: FAILED! => {"changed": false, "msg": "No package matching 'nrpe' found available, installed or updated", "rc": 126, "results": ["No package matching 'nrpe' found available, installed or updated"]}
+...ignoring
+
+TASK [default : Install the nrpe service, expecting fail, async failed] *********************************************
+fatal: [172.16.0.2]: FAILED! => {"ansible_job_id": "531168042850.23217", "changed": false, "finished": 1, "msg": "No package matching 'nrpe' found available, installed or updated", "rc": 126, "results": ["No package matching 'nrpe' found available, installed or updated"]}
+...ignoring
+fatal: [172.16.0.3]: FAILED! => {"ansible_job_id": "792110543799.1109", "changed": false, "finished": 1, "msg": "No package matching 'nrpe' found available, installed or updated", "rc": 126, "results": ["No package matching 'nrpe' found available, installed or updated"]}
+...ignoring
+
+TASK [default : Install the nrpe service, expecting fail, delegated] ************************************************
+fatal: [172.16.0.2 -> 172.16.0.3]: FAILED! => {"changed": false, "msg": "No package matching 'nrpe' found available, installed or updated", "rc": 126, "results": ["No package matching 'nrpe' found available, installed or updated"]}
+...ignoring
+fatal: [172.16.0.3 -> 172.16.0.3]: FAILED! => {"changed": false, "msg": "No package matching 'nrpe' found available, installed or updated", "rc": 126, "results": ["No package matching 'nrpe' found available, installed or updated"]}
+...ignoring
+
+TASK [default : shell command retry] ********************************************************************************
+FAILED - RETRYING: shell command retry (2 retries left).
+FAILED - RETRYING: shell command retry (2 retries left).
+FAILED - RETRYING: shell command retry (1 retries left).
+FAILED - RETRYING: shell command retry (1 retries left).
+fatal: [172.16.0.3]: FAILED! => {"attempts": 2, "changed": true, "cmd": "exit 1", "delta": "0:00:00.002275", "end": "2018-05-07 17:01:46.194604", "msg": "non-zero return code", "rc": 1, "start": "2018-05-07 17:01:46.192329", "stderr": "", "stderr_lines": [], "stdout": "", "stdout_lines": []}
+...ignoring
+fatal: [172.16.0.2]: FAILED! => {"attempts": 2, "changed": true, "cmd": "exit 1", "delta": "0:00:00.002448", "end": "2018-05-07 17:01:46.195721", "msg": "non-zero return code", "rc": 1, "start": "2018-05-07 17:01:46.193273", "stderr": "", "stderr_lines": [], "stdout": "", "stdout_lines": []}
+...ignoring
+
+TASK [default : shell command fail with items] **********************************************************************
+failed: [172.16.0.2] (item=1) => {"changed": true, "cmd": "exit \"1\"", "delta": "0:00:00.002383", "end": "2018-05-07 17:01:46.424354", "item": 1, "msg": "non-zero return code", "rc": 1, "start": "2018-05-07 17:01:46.421971", "stderr": "", "stderr_lines": [], "stdout": "", "stdout_lines": []}
+failed: [172.16.0.3] (item=1) => {"changed": true, "cmd": "exit \"1\"", "delta": "0:00:00.002076", "end": "2018-05-07 17:01:46.440625", "item": 1, "msg": "non-zero return code", "rc": 1, "start": "2018-05-07 17:01:46.438549", "stderr": "", "stderr_lines": [], "stdout": "", "stdout_lines": []}
+failed: [172.16.0.2] (item=2) => {"changed": true, "cmd": "exit \"2\"", "delta": "0:00:00.001986", "end": "2018-05-07 17:01:46.617355", "item": 2, "msg": "non-zero return code", "rc": 2, "start": "2018-05-07 17:01:46.615369", "stderr": "", "stderr_lines": [], "stdout": "", "stdout_lines": []}
+...ignoring
+failed: [172.16.0.3] (item=2) => {"changed": true, "cmd": "exit \"2\"", "delta": "0:00:00.002267", "end": "2018-05-07 17:01:46.633152", "item": 2, "msg": "non-zero return code", "rc": 2, "start": "2018-05-07 17:01:46.630885", "stderr": "", "stderr_lines": [], "stdout": "", "stdout_lines": []}
+...ignoring
+
+TASK [default : shell command fail delegated with items] ************************************************************
+failed: [172.16.0.2 -> 172.16.0.3] (item=1) => {"changed": true, "cmd": "exit \"1\"", "delta": "0:00:00.002067", "end": "2018-05-07 17:01:46.870627", "item": 1, "msg": "non-zero return code", "rc": 1, "start": "2018-05-07 17:01:46.868560", "stderr": "", "stderr_lines": [], "stdout": "", "stdout_lines": []}
+failed: [172.16.0.3 -> 172.16.0.3] (item=1) => {"changed": true, "cmd": "exit \"1\"", "delta": "0:00:00.001838", "end": "2018-05-07 17:01:46.895195", "item": 1, "msg": "non-zero return code", "rc": 1, "start": "2018-05-07 17:01:46.893357", "stderr": "", "stderr_lines": [], "stdout": "", "stdout_lines": []}
+failed: [172.16.0.2 -> 172.16.0.3] (item=2) => {"changed": true, "cmd": "exit \"2\"", "delta": "0:00:00.002485", "end": "2018-05-07 17:01:47.061717", "item": 2, "msg": "non-zero return code", "rc": 2, "start": "2018-05-07 17:01:47.059232", "stderr": "", "stderr_lines": [], "stdout": "", "stdout_lines": []}
+...ignoring
+failed: [172.16.0.3 -> 172.16.0.3] (item=2) => {"changed": true, "cmd": "exit \"2\"", "delta": "0:00:00.002219", "end": "2018-05-07 17:01:47.078933", "item": 2, "msg": "non-zero return code", "rc": 2, "start": "2018-05-07 17:01:47.076714", "stderr": "", "stderr_lines": [], "stdout": "", "stdout_lines": []}
+...ignoring
+
+TASK [Install the httpd] ********************************************************************************************
+ok: [172.16.0.2]
+ok: [172.16.0.3]
+
+RUNNING HANDLER [default : restart apache] **************************************************************************
+changed: [172.16.0.3]
+
+PLAY RECAP **********************************************************************************************************
+172.16.0.2                 : ok=17   changed=7    unreachable=0    failed=0
+172.16.0.3                 : ok=18   changed=10   unreachable=0    failed=0
+172.16.0.5                 : ok=0    changed=0    unreachable=1    failed=0

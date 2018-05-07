@@ -71,44 +71,58 @@ Without a callback module this is is the initial state of each method, and the p
 ## Default Callback Module ##
 The methods called in the default callback module and what they do.
 
-### Runner methods ###								
-|	v2 items	|	Default callback Plugin	|					
-|	-------------	|	-------------	|					
-|	v2_runner_item_on_failed	|	Displays "failed: [host_name] result" Dump results	|					
-|	v2_runner_item_on_ok	|	Displays "Ok" or "Changed"	|					
-|	v2_runner_item_on_skipped	|	Displays "skipping: [host_name]"	|					
-|	v2_runner_on_async_failed	|		|					
-|	v2_runner_on_async_ok	|		|					
-|	v2_runner_on_async_poll	|		|					
-|	v2_runner_on_failed	|	Displays "fatal: [%s -> %s]: FAILED! => %s" or "...ignoring"	|					
-|	v2_runner_on_file_diff	|		|					
-|	v2_runner_on_no_hosts	|		|					
-|	v2_runner_on_ok	|	Displays "changed: [host_name]" or "ok: [host_name]"	|					
-|	v2_runner_on_skipped	|		|					
-|	v2_runner_on_unreachable	|	Displays "fatal: [%s -> %s]: UNREACHABLE! => %s"	|					
-|	v2_runner_retry	|	Displays "FAILED - RETRYING" task and retries left	|					
+### Runner methods ###							
+|	v2 items	|	Default callback Plugin	|	Verbosity	|	Default callback plugin output to screen	|
+|	-------------	|	-------------	|	-------------	|	-------------	|
+|	v2_runner_item_on_failed	|	Displays "failed: [host_name] result" Dump results	|		|	failed: [host_name] (item=1) => {dump_results}	|
+|		|		|	delegated vars	|	failed: [host_name-> designated_host] (item=1) =>  {dump_results}	|
+|		|		|	on ignore errors	|	...ignoring	|
+|	v2_runner_item_on_ok	|	Displays "Ok" or "Changed"	|		|	(ok or changed): [host_name] => (item=[item_list'])	|
+|		|		|	delegated vars	|	(ok or changed): [host_name-> designated_host] => (item=[item_list])	|
+|		|		|	v	|	displays dump results	|
+|	v2_runner_item_on_skipped	|	Displays "skipping: [host_name]"	|		|	skipping: [host_name] => (item=[]) 	|
+|		|		|	v	|	displays dump results	|
+|	v2_runner_on_async_failed	|		|		|	no output	|
+|	v2_runner_on_async_ok	|		|		|	no output	|
+|	v2_runner_on_async_poll	|		|		|	no output	|
+|	v2_runner_on_failed	|	Displays "fatal: [%s -> %s]: FAILED! => %s" or "...ignoring"	|		|	fatal: [host_name]: FAILED! => {dump_results}	|
+|		|		|	delegated vars	|	fatal: [host_name-> designated_host]: FAILED! => {dump_results}	|
+|		|		|	on ignore errors	|	...ignoring	|
+|	v2_runner_on_no_hosts	|		|		|	no output	|
+|	v2_runner_on_ok	|	Displays "changed: [host_name]" or "ok: [host_name]"	|		|	(ok or changed): [host_name]	|
+|		|		|	delegated vars	|	(ok or changed): [host_name-> designated_host]	|
+|		|		|	v	|	displays dump results	|
+|	v2_runner_on_skipped	|		|		|	skipping: [host_name]	|
+|		|		|	delegated	|	skipping: [host_name-> designated_host]	|
+|		|		|	v	|	displays dump results	|
+|	v2_runner_on_unreachable	|	Displays "fatal: [%s -> %s]: UNREACHABLE! => %s"	|		|	fatal: [host_name]: UNREACHABLE! => {dump_results}	|
+|		|		|	delegated vars	|	fatal: [host_name-> designated_host]: UNREACHABLE! => {dump_results}	|
+|	v2_runner_retry	|	Displays "FAILED - RETRYING" task and retries left	|		|	FAILED - RETRYING: shell command retry (Xretries left).	|
 
-### Playbooks methods ###								
-|	v2 items	|	Default callback Plugin	|					
-|	-------------	|	-------------	|					
-|	v2_playbook_on_cleanup_task_start	|	Display "CLEANUP TASK [task_name]"	|					
-|	v2_playbook_on_handler_task_start	|	Display "RUNNING HANDLER [handler_task_name]"	|					
-|	v2_playbook_on_import_for_host	|		|					
-|	v2_playbook_on_include	|	Display 'included: %s for %s'	|					
-|	v2_playbook_on_no_hosts_matched	|	Display "skipping: no hosts matched"	|					
-|	v2_playbook_on_no_hosts_remaining	|	Display "NO MORE HOSTS LEFT"	|					
-|	v2_playbook_on_not_import_for_host	|		|					
-|	v2_playbook_on_notify	|		|					
-|	v2_playbook_on_play_start	|	Displays play name	|					
-|	v2_playbook_on_setup	|	Displays "skipping: [host_name] => (item=%s) "	|					
-|	v2_playbook_on_start	|	Displays playbook and verbosity level	|					
-|	v2_playbook_on_stats	|	Displays "PLAY RECAP" and host summary	|					
-|	v2_playbook_on_task_start	|	Displays the task via print task banner	|					
-|	v2_playbook_on_vars_prompt	|		|					
+### Playbooks methods ###							
+|	v2 items	|	Default callback Plugin	|	Verbosity	|	Default callback plugin output to screen	|
+|	-------------	|	-------------	|	-------------	|	-------------	|
+|	v2_playbook_on_cleanup_task_start	|	Display "CLEANUP TASK [task_name]"	|		|	Currently seems to be unused and 	|
+|	v2_playbook_on_handler_task_start	|		|		|	RUNNING HANDLER [handler_task_name]	|
+|	v2_playbook_on_import_for_host	|		|		|	no output	|
+|	v2_playbook_on_include	|		|		|	TASK [play_name : task_names] 	|
+|		|		|		|	included: playbook.yml for localhost	|
+|	v2_playbook_on_no_hosts_matched	|		|		|	"skipping: no hosts matched"	|
+|	v2_playbook_on_no_hosts_remaining	|		|		|	"NO MORE HOSTS LEFT"	|
+|	v2_playbook_on_not_import_for_host	|		|		|	no output	|
+|	v2_playbook_on_notify	|		|	vv	|	NOTIFIED HANDLER default : handler_name for host_name	|
+|	v2_playbook_on_play_start	|	Displays play name	|	base	|	PLAY [play_name]	|
+|	v2_playbook_on_start	|	Displays playbook and verbosity level	|	vv	|	PLAYBOOK: default.yml 	|
+|	v2_playbook_on_stats	|		|		|	PLAY RECAP **********************************************************************************************************	|
+|		|		|		|	host_name                 : ok=16   changed=7    unreachable=0    failed=0	|
+|	v2_playbook_on_task_start	|	Displays the task via print task banner	|		|	TASK [task_name] 	|
+|	v2_playbook_on_vars_prompt	|		|		|	no output	|
 
-### Misc methods ###								
-|	v2 items	|	Default callback Plugin	|					
-|	-------------	|	-------------	|					
-|	\__init\__	|	Sets vars self._play, self._last_task_banner to None	|					
-|	v2_on_file_diff	|	shows diff on file changed	|					
-|	Within default Callback module only	|	Displays task	|					
+### Misc methods ###							
+|	v2 items	|	Default callback Plugin	|	Verbosity	|	Default callback plugin output to screen	|
+|	-------------	|	-------------	|	-------------	|	-------------	|
+|	\__init\__	|	Sets vars self._play, self._last_task_banner to None	|	vvvv	|	Loading callback plugin default of type stdout, v2.0 from /usr/lib/python2.7/site-packages/ansible/plugins/callback/default.pyc	|
+|	v2_on_file_diff	|	shows diff on file changed	|	shows diff on file changed	|		|
+|	Within default Callback module only	|		|		|		|
+|	_print_task_banner	|		|		|	TASK [task_name] 	|
+|	_print_task_banner	|		|	vv	|	task path: file_path:line_number	|

@@ -1,0 +1,3 @@
+- name: Install the httpd
+  yum:
+    name: httpd

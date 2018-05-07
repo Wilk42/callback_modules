@@ -1,0 +1,38 @@
+---
+- name: Play 0 (all is good)
+  hosts: all
+  become: false
+  connection: local
+  gather_facts: no
+  tasks:
+    - name: Task 1 -- Runs OK
+      command: date
+
+- name: Play 1 (all, creates some failures)
+  hosts: all
+  become: false
+  connection: local
+  gather_facts: no
+  tasks:
+    - name: Task 1 -- Creates Failure OK
+      command: date
+      failed_when: "'host2' in inventory_hostname"
+
+- name: Play 2 (all, spams NO HOSTS LEFT)
+  hosts:
+    - all
+  become: false
+  connection: local
+  gather_facts: no
+  tasks:
+    - command: date
+
+- name: Play 3a (group with only failures)
+  hosts:
+    - group-with-only-failures
+  become: false
+  connection: local
+  gather_facts: no
+  tasks:
+    - name: Task 3
+command: date
