@@ -1,0 +1,188 @@
+
+PLAY [all] ******************************************************************************************************
+
+TASK [Gathering Facts] ******************************************************************************************
+ok: [172.16.0.2]
+ok: [172.16.0.3]
+fatal: [172.16.0.5]: UNREACHABLE! => {
+    "changed": false, 
+    "msg": "Failed to connect to the host via ssh: ssh: connect to host 172.16.0.5 port 22: No route to host\r\n", 
+    "unreachable": true
+}
+
+TASK [default : Install the httpd] ******************************************************************************
+ok: [172.16.0.2]
+ok: [172.16.0.3]
+
+TASK [default : Install the httpd expected skip] ****************************************************************
+skipping: [172.16.0.2]
+skipping: [172.16.0.3]
+
+TASK [default : remove httpd delegated] *************************************************************************
+changed: [172.16.0.3 -> 172.16.0.3]
+changed: [172.16.0.2 -> 172.16.0.3]
+
+TASK [default : add packages] ***********************************************************************************
+ok: [172.16.0.2] => (item=['httpd', 'perl'])
+changed: [172.16.0.3] => (item=['httpd', 'perl'])
+
+TASK [default : add packages skipping list] *********************************************************************
+skipping: [172.16.0.2] => (item=[]) 
+skipping: [172.16.0.3] => (item=[]) 
+
+TASK [default : add packages delegated] *************************************************************************
+ok: [172.16.0.2 -> 172.16.0.3] => (item=['ruby', 'java'])
+ok: [172.16.0.3 -> 172.16.0.3] => (item=['ruby', 'java'])
+
+TASK [default : remove packages] ********************************************************************************
+ok: [172.16.0.2] => (item=['vim', 'python-virtualenv'])
+ok: [172.16.0.3] => (item=['vim', 'python-virtualenv'])
+
+TASK [default : replace AllowOverride] **************************************************************************
+ok: [172.16.0.2]
+changed: [172.16.0.3]
+
+TASK [default : start the httpd service] ************************************************************************
+changed: [172.16.0.3]
+changed: [172.16.0.2]
+
+TASK [default : start the httpd service async poll] *************************************************************
+changed: [172.16.0.2]
+changed: [172.16.0.3]
+
+TASK [default : start the httpd service async no poll] **********************************************************
+changed: [172.16.0.2]
+changed: [172.16.0.3]
+
+TASK [default : Install the nrpe service, expecting fail] *******************************************************
+fatal: [172.16.0.2]: FAILED! => {
+    "changed": false, 
+    "msg": "No package matching 'nrpe' found available, installed or updated", 
+    "rc": 126, 
+    "results": [
+        "No package matching 'nrpe' found available, installed or updated"
+    ]
+}
+...ignoring
+fatal: [172.16.0.3]: FAILED! => {
+    "changed": false, 
+    "msg": "No package matching 'nrpe' found available, installed or updated", 
+    "rc": 126, 
+    "results": [
+        "No package matching 'nrpe' found available, installed or updated"
+    ]
+}
+...ignoring
+
+TASK [default : Install the nrpe service, expecting fail, async failed] *****************************************
+fatal: [172.16.0.2]: FAILED! => {
+    "ansible_job_id": "364152668107.8254", 
+    "changed": false, 
+    "finished": 1, 
+    "msg": "No package matching 'nrpe' found available, installed or updated", 
+    "rc": 126, 
+    "results": [
+        "No package matching 'nrpe' found available, installed or updated"
+    ]
+}
+...ignoring
+fatal: [172.16.0.3]: FAILED! => {
+    "ansible_job_id": "539957645783.12533", 
+    "changed": false, 
+    "finished": 1, 
+    "msg": "No package matching 'nrpe' found available, installed or updated", 
+    "rc": 126, 
+    "results": [
+        "No package matching 'nrpe' found available, installed or updated"
+    ]
+}
+...ignoring
+
+TASK [default : Install the nrpe service, expecting fail, delegated] ********************************************
+fatal: [172.16.0.2 -> 172.16.0.3]: FAILED! => {
+    "changed": false, 
+    "msg": "No package matching 'nrpe' found available, installed or updated", 
+    "rc": 126, 
+    "results": [
+        "No package matching 'nrpe' found available, installed or updated"
+    ]
+}
+...ignoring
+fatal: [172.16.0.3 -> 172.16.0.3]: FAILED! => {
+    "changed": false, 
+    "msg": "No package matching 'nrpe' found available, installed or updated", 
+    "rc": 126, 
+    "results": [
+        "No package matching 'nrpe' found available, installed or updated"
+    ]
+}
+...ignoring
+
+TASK [default : shell command retry] ****************************************************************************
+FAILED - RETRYING: shell command retry (2 retries left).
+FAILED - RETRYING: shell command retry (2 retries left).
+FAILED - RETRYING: shell command retry (1 retries left).
+FAILED - RETRYING: shell command retry (1 retries left).
+fatal: [172.16.0.3]: FAILED! => {
+    "attempts": 2, 
+    "changed": true, 
+    "cmd": "exit 1", 
+    "delta": "0:00:00.002213", 
+    "end": "2018-05-08 13:23:43.930381", 
+    "msg": "non-zero return code", 
+    "rc": 1, 
+    "start": "2018-05-08 13:23:43.928168", 
+    "stderr": "", 
+    "stderr_lines": [], 
+    "stdout": "", 
+    "stdout_lines": []
+}
+...ignoring
+fatal: [172.16.0.2]: FAILED! => {
+    "attempts": 2, 
+    "changed": true, 
+    "cmd": "exit 1", 
+    "delta": "0:00:00.002259", 
+    "end": "2018-05-08 13:23:43.932077", 
+    "msg": "non-zero return code", 
+    "rc": 1, 
+    "start": "2018-05-08 13:23:43.929818", 
+    "stderr": "", 
+    "stderr_lines": [], 
+    "stdout": "", 
+    "stdout_lines": []
+}
+...ignoring
+
+TASK [default : shell command fail with items] ******************************************************************
+ [WARNING]: Failure using method (v2_runner_item_on_failed) in callback plugin
+(<ansible.plugins.callback.default.CallbackModule object at 0x7fa764157950>): 'int' object is not iterable
+...ignoring
+...ignoring
+
+TASK [default : shell command fail delegated with items] ********************************************************
+...ignoring
+...ignoring
+
+RUNNING HANDLER [default : restart apache] **********************************************************************
+changed: [172.16.0.3]
+
+PLAY [all] ******************************************************************************************************
+
+TASK [Gathering Facts] ******************************************************************************************
+ok: [172.16.0.2]
+ok: [172.16.0.3]
+
+TASK [Install the httpd] ****************************************************************************************
+ok: [172.16.0.2]
+ok: [172.16.0.3]
+ [WARNING]: Could not match supplied host pattern, ignoring: none
+
+PLAY [none] *****************************************************************************************************
+skipping: no hosts matched
+
+PLAY RECAP ******************************************************************************************************
+172.16.0.2                 : ok=18   changed=7    unreachable=0    failed=0   
+172.16.0.3                 : ok=19   changed=10   unreachable=0    failed=0   
+172.16.0.5                 : ok=0    changed=0    unreachable=1    failed=0   
+

@@ -1,5 +1,5 @@
   - name: Include a play after another play
-    include: otherplays.yaml
+    import_playbook: otherplays.yaml
 
   - name: Install the httpd expected skip
     yum:

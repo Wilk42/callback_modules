@@ -1,9 +1,0 @@
-[group-with-some-failures]
-host2
-host1
-
-[group-with-only-failures]
-host2
-
-[group-with-only-success]
-host1

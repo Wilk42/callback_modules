@@ -102,7 +102,7 @@ The methods called in the default callback module and what they do.
 ### Playbooks methods ###							
 |	v2 items	|	Default callback Plugin	|	Verbosity	|	Default callback plugin output to screen	|
 |	-------------	|	-------------	|	-------------	|	-------------	|
-|	v2_playbook_on_cleanup_task_start	|	Display "CLEANUP TASK [task_name]"	|		|	Currently seems to be unused and 	|
+|	v2_playbook_on_cleanup_task_start	|	Display "CLEANUP TASK [task_name]"	|		|	Currently seems to be unused 	|
 |	v2_playbook_on_handler_task_start	|		|		|	RUNNING HANDLER [handler_task_name]	|
 |	v2_playbook_on_import_for_host	|		|		|	no output	|
 |	v2_playbook_on_include	|		|		|	TASK [play_name : task_names] 	|

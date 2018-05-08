@@ -2,7 +2,7 @@
 - hosts: all
   roles:
     - role: default
-- include: otherplays.yaml
+- import_playbook: otherplays.yaml
 
 
 - hosts: none

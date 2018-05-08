@@ -11,4 +11,7 @@ Incorporates the stdout of the minimalist callback module that is default for an
 Make the default plugin more readable
 
 Changes:
-When the dump results is called, added an indent of 4. This seems to make the output multi line instead of a single line, and making it easier to read, along with indenting the output. This was borrowed from the minimalist callback plugin. 
+When the dump results is called, added an indent of 4. This seems to make the output multi line instead of a single line, and making it easier to read, along with indenting the output. This was borrowed from the minimalist callback plugin.
+
+### Research Doc ###
+Contains information about what each method in ansible callback does. Hoping to update this and use as a reference for others looking to make their own callback modules. 
