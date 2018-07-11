@@ -10,7 +10,7 @@
     yum:
       name: httpd
       state: absent
-    delegate_to: 172.16.0.3
+    delegate_to: rhelminion01
 
   - name: add packages
     yum:
@@ -38,7 +38,7 @@
     with_items:
        - ruby
        - java
-    delegate_to: 172.16.0.3
+    delegate_to: rhelminion01
 
   - name: remove packages
     yum:
@@ -95,7 +95,7 @@
   - name: Install the nrpe service, expecting fail, delegated
     yum:
       name: nrpe
-    delegate_to: 172.16.0.3
+    delegate_to: rhelminion01
     ignore_errors: True
 
   - name: shell command retry
@@ -118,5 +118,5 @@
     with_items:
        - 1
        - 2
-    delegate_to: 172.16.0.3
+    delegate_to: rhelminion01
     ignore_errors: yes
