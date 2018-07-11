@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: rhelminion
   roles:
     - role: default
 - import_playbook: otherplays.yaml
